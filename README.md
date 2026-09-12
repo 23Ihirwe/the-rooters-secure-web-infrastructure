@@ -394,7 +394,7 @@ ChatGPT and Claude were used as supplementary learning and troubleshooting aids.
 
 ## The Rooters
 
-**BSc(Hons) Software Engineering — Web Infrastructure**  
+**BSc(Hons) Software Engineering  for Web Infrastructure**  
 **Summative Group Practical Assignment**  
 **Assessment:** *Securing and Scaling a Production-Style Web Infrastructure*
 
