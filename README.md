@@ -1,4 +1,4 @@
-# The Rooters — Secure Web Infrastructure
+# The Rooters for Secure Web Infrastructure
 
 > **Securing and Scaling a Production-Style Web Infrastructure**
 
@@ -302,7 +302,7 @@ After Backend 2 is restored, both backend ports are listening again and repeated
 ## Repository Structure
 
 ```text
-GitHub Repository
+The Rooters GitHub Repository
 │
 ├── README.md
 │
@@ -351,10 +351,6 @@ The TLS private key (`the_rooters.key`) is intentionally excluded from this repo
 
 ```gitignore
 # TLS private keys
-*.key
-*.pem
-
-# Python generated files
 __pycache__/
 *.pyc
 
