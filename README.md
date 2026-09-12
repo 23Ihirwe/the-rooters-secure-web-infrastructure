@@ -307,47 +307,23 @@ full-size evidence file.
 
 ### Backend Services
 
-Both backend services respond independently and listen on the local
-loopback interface on ports `3001` and `3002`.
+### Backend Services
 
-[![Backend services
-running](images/01_backend_services.png)](images/01_backend_services.png)
+Both backend services respond independently and listen on the local loopback interface on ports `3001` and `3002`.
+
+[![Backend services running](the-rooters-secure-web-infrastructure/Evidence/01_backend_services.png)](the-rooters-secure-web-infrastructure/Evidence/01_backend_services.png)
 
 ### NGINX Load Balancing
 
-Repeated HTTPS requests through NGINX return responses from both Server
-1 and Server 2, demonstrating that requests are being distributed across
-the backend pool.
+Repeated HTTPS requests through NGINX return responses from both Server 1 and Server 2, demonstrating that requests are being distributed across the backend pool.
 
-[![NGINX load balancing
-evidence](images/02_load_balancing.png)](images/02_load_balancing.png)
+[![NGINX load balancing evidence](the-rooters-secure-web-infrastructure/Evidence/02_load_balancing.png)](the-rooters-secure-web-infrastructure/Evidence/02_load_balancing.png)
 
 ### HTTPS and HTTP Redirect
 
-HTTPS successfully returns a backend response, while an HTTP request
-receives `301 Moved Permanently` and is redirected to
-`https://localhost/`.
+HTTPS successfully returns a backend response, while an HTTP request receives `301 Moved Permanently` and is redirected to `https://localhost/`.
 
-[![HTTPS and HTTP redirect
-evidence](images/03_https_redirect.png)](images/03_https_redirect.png)
-
-### UFW Firewall Rules
-
-UFW is active and permits the required entry ports `22`, `80`, and
-`443`. Backend ports `3001` and `3002` are not present in the public
-allow rules.
-
-[![UFW firewall
-rules](images/04_firewall_rules.png)](images/04_firewall_rules.png)
-
-### Troubleshooting Recovery
-
-After Backend 2 is restored, both backend ports are listening again and
-the infrastructure can return responses from both servers.
-
-[![Troubleshooting recovery
-evidence](images/05_troubleshooting_recovery.png)](images/05_troubleshooting_recovery.png)
-
+[![HTTPS and HTTP redirect evidence](the-rooters-secure-web-infrastructure/Evidence/03_https_redirect.png)](the-rooters-secure-web-infrastructure/Evidence/03_https_redirect.png)
 ## Repository Structure
 
 ``` text
