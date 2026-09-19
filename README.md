@@ -179,7 +179,7 @@ The response shows `HTTP/1.1 301 Moved Permanently` and redirects the request to
 
 ---
 
-## Firewall — UFW
+## Firewall   UFW
 
 The firewall follows the **principle of least exposure**.
 
@@ -208,7 +208,7 @@ Ports `3001` and `3002` are absent from the public UFW allow rules, and the serv
 
 The deliberate infrastructure fault used for troubleshooting is **Backend 2 becoming unavailable**.
 
-### 1 — Problem and Symptom
+### 1  Problem and Symptom
 
 Backend 2 is deliberately stopped. Repeated HTTPS requests then return only Server 1.
 
@@ -216,7 +216,7 @@ Backend 2 is deliberately stopped. Repeated HTTPS requests then return only Serv
 for i in {1..6}; do curl -sk https://localhost; echo; done
 ```
 
-### 2 — Evidence
+### 2   Evidence
 
 The backend ports and direct connections are checked:
 
@@ -228,7 +228,7 @@ curl http://127.0.0.1:3002; echo
 
 Backend 1 remains reachable while Backend 2 is unavailable.
 
-### 3 — Investigation
+### 3   Investigation
 
 NGINX and the listening ports are investigated:
 
@@ -240,11 +240,11 @@ ss -ltnp | grep -E '3001|3002'
 
 NGINX remains active and its configuration validates successfully, while no process is listening on port `3002`. This narrows the failure to Backend 2.
 
-### 4 — Root Cause
+### 4   Root Cause
 
 Backend 2's process was stopped, leaving no service listening on `127.0.0.1:3002`.
 
-### 5 — Fix & Verification
+### 5   Fix & Verification
 
 Backend 2 is restarted:
 
