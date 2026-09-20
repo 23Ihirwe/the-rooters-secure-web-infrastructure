@@ -1,0 +1,92 @@
+TLS/SSL CERTIFICATE INFORMATION
+
+============================================================
+PURPOSE
+============================================================
+
+TLS/SSL is used in this project to secure communication between
+the client and the NGINX web server using HTTPS.
+
+The project uses a self-signed certificate for the local
+demonstration environment.
+
+============================================================
+CERTIFICATE INFORMATION
+============================================================
+
+Certificate file:
+/etc/ssl/certs/the_rooters.crt
+
+Private key location:
+/etc/ssl/private/the_rooters.key
+
+IMPORTANT:
+The private key itself is NOT included in this GitHub repository
+for security reasons.
+
+============================================================
+NGINX TLS CONFIGURATION
+============================================================
+
+NGINX listens for secure HTTPS connections on port 443.
+
+The relevant configuration is:
+
+listen 443 ssl;
+
+ssl_certificate /etc/ssl/certs/the_rooters.crt;
+ssl_certificate_key /etc/ssl/private/the_rooters.key;
+
+============================================================
+HTTP TO HTTPS REDIRECTION
+============================================================
+
+Requests received over HTTP on port 80 are redirected to HTTPS.
+
+The redirect can be tested using:
+
+curl -I http://localhost
+
+Expected result:
+
+HTTP/1.1 301 Moved Permanently
+Location: https://localhost/
+
+============================================================
+HTTPS VERIFICATION
+============================================================
+
+HTTPS can be tested using:
+
+curl -k https://localhost
+
+The -k option is used because the project uses a self-signed
+certificate in the local demonstration environment.
+
+A successful response confirms that NGINX is serving the
+application through HTTPS.
+
+============================================================
+CERTIFICATE VERIFICATION
+============================================================
+
+Certificate details can be inspected using:
+
+openssl x509 -in /etc/ssl/certs/the_rooters.crt -text -noout
+
+The certificate dates can be checked using:
+
+openssl x509 -in /etc/ssl/certs/the_rooters.crt -noout -dates
+
+============================================================
+SECURITY NOTE
+============================================================
+
+Only the certificate information and configuration are documented
+in this repository.
+
+The private key located at:
+
+/etc/ssl/private/the_rooters.key
+
+must remain private and must not be committed to GitHub.
