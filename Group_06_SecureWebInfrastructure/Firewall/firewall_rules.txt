@@ -1,8 +1,6 @@
 FIREWALL CONFIGURATION
 
-============================================================
 PURPOSE
-============================================================
 
 UFW (Uncomplicated Firewall) is used in this project to control
 incoming network connections and reduce unnecessary network exposure.
@@ -14,10 +12,7 @@ on ports 3001 and 3002.
 Only the ports required for administration and web traffic are
 allowed through UFW.
 
-
-============================================================
 DEFAULT FIREWALL POLICY
-============================================================
 
 Incoming connections are denied by default:
 
@@ -31,9 +26,7 @@ This means that incoming services must be explicitly allowed
 before they can receive connections through the firewall.
 
 
-============================================================
 ALLOWED PORTS
-============================================================
 
 SSH - Port 22:
 
@@ -57,18 +50,16 @@ sudo ufw allow 443/tcp
 Port 443 is allowed for secure HTTPS traffic through NGINX.
 
 
-============================================================
+
 ENABLE UFW
-============================================================
 
 The firewall can be enabled using:
 
 sudo ufw enable
 
 
-============================================================
 FIREWALL VERIFICATION
-============================================================
+
 
 The configured firewall rules can be checked using:
 
@@ -88,9 +79,8 @@ IPv6 versions of these rules may also appear when IPv6
 support is enabled.
 
 
-============================================================
+
 BACKEND SERVICES
-============================================================
 
 The project uses two Python backend servers:
 
@@ -106,9 +96,8 @@ NGINX receives client requests and forwards them internally
 to the backend servers.
 
 
-============================================================
+
 BACKEND PORT VERIFICATION
-============================================================
 
 The backend listening ports can be checked using:
 
@@ -123,9 +112,8 @@ This confirms that the backend applications are listening on
 the local loopback interface.
 
 
-============================================================
+
 HTTPS VERIFICATION
-============================================================
 
 HTTPS access through NGINX can be tested using:
 
@@ -138,9 +126,8 @@ A successful request returns a response from one of the
 backend servers through NGINX.
 
 
-============================================================
+
 HTTP TO HTTPS REDIRECTION
-============================================================
 
 HTTP redirection can be tested using:
 
@@ -155,9 +142,8 @@ This confirms that HTTP requests are redirected by NGINX
 to HTTPS.
 
 
-============================================================
+
 FINAL FIREWALL CONFIGURATION
-============================================================
 
 Public/required ports:
 
