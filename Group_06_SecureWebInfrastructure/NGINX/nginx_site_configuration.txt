@@ -1,6 +1,9 @@
 NGINX SITE CONFIGURATION
 
-Purpose:
+============================================================
+PURPOSE
+============================================================
+
 This configuration uses NGINX as a reverse proxy and load balancer.
 Requests are distributed between two backend servers running locally
 on ports 3001 and 3002. HTTP traffic is redirected to HTTPS.
