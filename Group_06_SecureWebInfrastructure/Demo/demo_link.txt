@@ -1,6 +1,4 @@
-============================================================
 DEMONSTRATION VIDEO
-============================================================
 
 Video Link:
 https://drive.google.com/file/d/1vV7efgrfUFCm-qWV-iCZwEzB0PJwJvEl/view?usp=sharing
@@ -10,9 +8,9 @@ of our secure web infrastructure. Each group member demonstrates the
 section they were responsible for and explains the relevant configuration,
 commands, tests, and results.
 
-============================================================
+
 DEMONSTRATION STRUCTURE
-============================================================
+
 
 1. ARCHITECTURE AND ENVIRONMENT
 Presented by: Ange Claire Uwineza
@@ -121,12 +119,3 @@ Hildegardine Ihirwe
 - Firewall Configuration
 - Troubleshooting and Diagnostic Reasoning
 
-============================================================
-EXPECTED DEMONSTRATION LENGTH
-============================================================
-
-Approximately 10-20 minutes.
-
-The video demonstrates the complete infrastructure from architecture
-and load balancing through HTTPS security, firewall configuration,
-fault diagnosis, recovery, and final verification.
