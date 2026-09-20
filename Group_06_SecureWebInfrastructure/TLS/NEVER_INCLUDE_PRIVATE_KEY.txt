@@ -1,0 +1,1 @@
+The TLS private key (the_rooters.key) has been deliberately excluded from this submission, as it must remain confidential and secret. Only the public certificate (public_certificate_if_used.crt) is included in this submission, in line with the assignment's security requirements.
