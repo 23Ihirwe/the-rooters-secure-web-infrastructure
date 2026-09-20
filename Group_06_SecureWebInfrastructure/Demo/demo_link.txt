@@ -1,0 +1,132 @@
+============================================================
+DEMONSTRATION VIDEO
+============================================================
+
+Video Link:
+PASTE_FINAL_VIDEO_LINK_HERE
+
+The recorded demonstration presents the implementation and verification
+of our secure web infrastructure. Each group member demonstrates the
+section they were responsible for and explains the relevant configuration,
+commands, tests, and results.
+
+============================================================
+DEMONSTRATION STRUCTURE
+============================================================
+
+1. ARCHITECTURE AND ENVIRONMENT
+Presented by: Ange Claire Uwineza
+Approximate Time: 1 minute
+
+This section introduces the overall architecture of the project.
+It identifies the NGINX web server/reverse proxy, the two backend
+servers, and the ports used by the infrastructure.
+
+The demonstration explains how the main components are connected
+and how requests move through the infrastructure.
+
+
+2. LOAD BALANCING
+Presented by: Lovella Nkusi Teta
+Approximate Time: 2 minutes
+
+This section demonstrates the NGINX load-balancing configuration.
+
+It includes:
+- The two backend servers
+- NGINX configuration
+- NGINX configuration validation
+- Repeated requests through NGINX
+- Evidence that requests are distributed between Server 1 and Server 2
+
+
+3. HTTPS / TLS
+Presented by: Elvire Akayezu
+Approximate Time: 3 minutes
+
+This section demonstrates the HTTPS and TLS configuration.
+
+It includes:
+- HTTPS connectivity
+- TLS/SSL certificate configuration
+- Certificate information
+- NGINX HTTPS configuration
+- HTTP to HTTPS redirection
+- Verification that HTTP requests are redirected to HTTPS
+
+
+4. FIREWALL CONFIGURATION
+Presented by: Hildegardine Ihirwe
+Approximate Time: 2 minutes
+
+This section demonstrates the UFW firewall configuration used to
+reduce unnecessary network exposure.
+
+It includes:
+- Checking the firewall status
+- Default deny policy for incoming connections
+- Default allow policy for outgoing connections
+- Port 22 allowed for SSH
+- Port 80 allowed for HTTP
+- Port 443 allowed for HTTPS
+- Verification of the final firewall rules
+- Verification that backend ports 3001 and 3002 are locally bound
+  and are not added as public UFW allow rules
+
+
+5. TROUBLESHOOTING AND DIAGNOSTIC REASONING
+Presented by: Hildegardine Ihirwe
+Approximate Time: 2-3 minutes
+
+This section demonstrates a deliberate Backend 2 failure and the
+troubleshooting process used to identify and resolve the problem.
+
+The demonstration follows five stages:
+
+1. Problem and Symptom
+   Backend 2 is deliberately stopped and repeated requests are used
+   to observe the effect on the load-balanced service.
+
+2. Evidence
+   Backend ports and direct backend requests are checked to confirm
+   that Backend 1 is available while Backend 2 is unavailable.
+
+3. Investigation
+   NGINX service status, NGINX configuration, and listening ports
+   are checked to narrow down the source of the problem.
+
+4. Root Cause
+   The investigation confirms that the Backend 2 Python process has
+   been stopped and nothing is listening on port 3002.
+
+5. Fix and Verification
+   Backend 2 is restarted. Both backend ports are checked again,
+   followed by repeated HTTPS requests to confirm that Server 1 and
+   Server 2 are both serving requests again.
+
+============================================================
+GROUP DEMONSTRATION RESPONSIBILITIES
+============================================================
+
+Ange Claire Uwineza
+- Architecture and Environment
+
+Lovella Nkusi Teta
+- Load Balancing
+
+Elvire Akayezu
+- HTTPS / TLS
+
+Hildegardine Ihirwe
+- Firewall Configuration
+- Troubleshooting and Diagnostic Reasoning
+
+============================================================
+EXPECTED DEMONSTRATION LENGTH
+============================================================
+
+Approximately 10-20 minutes.
+
+The video demonstrates the complete infrastructure from architecture
+and load balancing through HTTPS security, firewall configuration,
+fault diagnosis, recovery, and final verification.
