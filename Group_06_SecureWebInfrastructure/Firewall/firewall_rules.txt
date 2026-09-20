@@ -1,159 +1,178 @@
-# Firewall Configuration
-# Securing and Scaling a Production-Style Web Infrastructure
-#
-# We have configured UFW (Uncomplicated Firewall) to protect
-# our web infrastructure and control the ports that are allowed
-# to receive incoming connections.
-#
-# We have NGINX acting as the main entry point to our web
-# infrastructure. Our two Python backend servers run locally
-# behind NGINX on ports 3001 and 3002.
-#
-# Our firewall configuration allows only the ports required
-# for administration and web traffic.
+FIREWALL CONFIGURATION
+
+============================================================
+PURPOSE
+============================================================
+
+UFW (Uncomplicated Firewall) is used in this project to control
+incoming network connections and reduce unnecessary network exposure.
+
+NGINX acts as the main entry point to the web infrastructure,
+while the two Python backend servers run locally behind NGINX
+on ports 3001 and 3002.
+
+Only the ports required for administration and web traffic are
+allowed through UFW.
 
 
-# ------------------------------------------------------------
-# Default firewall policy
-# ------------------------------------------------------------
-#
-# We have denied incoming connections by default so that
-# services are not automatically exposed.
-#
-# We have allowed outgoing connections so that the server can
-# make normal outbound connections when required.
+============================================================
+DEFAULT FIREWALL POLICY
+============================================================
+
+Incoming connections are denied by default:
 
 sudo ufw default deny incoming
+
+Outgoing connections are allowed by default:
+
 sudo ufw default allow outgoing
 
+This means that incoming services must be explicitly allowed
+before they can receive connections through the firewall.
 
-# ------------------------------------------------------------
-# Required firewall rules
-# ------------------------------------------------------------
-#
-# We have allowed port 22 for SSH.
-# This allows us to securely access and administer the server.
+
+============================================================
+ALLOWED PORTS
+============================================================
+
+SSH - Port 22:
 
 sudo ufw allow 22/tcp
 
-# We have allowed port 80 for HTTP traffic.
-# NGINX receives requests on this port and redirects them
-# to HTTPS.
+Port 22 is allowed for SSH administration.
+
+
+HTTP - Port 80:
 
 sudo ufw allow 80/tcp
 
-# We have allowed port 443 for HTTPS.
-# This is the secure entry point to our web application.
+Port 80 is allowed for HTTP traffic. NGINX receives HTTP
+requests and redirects them to HTTPS.
+
+
+HTTPS - Port 443:
 
 sudo ufw allow 443/tcp
 
+Port 443 is allowed for secure HTTPS traffic through NGINX.
 
-# ------------------------------------------------------------
-# Enable the firewall
-# ------------------------------------------------------------
-#
-# After adding the required rules, we enabled UFW.
+
+============================================================
+ENABLE UFW
+============================================================
+
+The firewall can be enabled using:
 
 sudo ufw enable
 
 
-# ------------------------------------------------------------
-# Verify our firewall rules
-# ------------------------------------------------------------
-#
-# We used the following command to confirm that UFW is active
-# and that only the required ports are allowed.
+============================================================
+FIREWALL VERIFICATION
+============================================================
+
+The configured firewall rules can be checked using:
+
+sudo ufw status verbose
+
+The numbered rules can be displayed using:
 
 sudo ufw status numbered
 
-# Our final allowed ports are:
-#
-# 22/tcp  - SSH administration
-# 80/tcp  - HTTP traffic and redirection to HTTPS
-# 443/tcp - Secure HTTPS traffic
-#
-# IPv6 versions of these rules may also appear in the UFW
-# output when IPv6 is enabled.
+The required allowed ports are:
+
+22/tcp  - SSH
+80/tcp  - HTTP
+443/tcp - HTTPS
+
+IPv6 versions of these rules may also appear when IPv6
+support is enabled.
 
 
-# ------------------------------------------------------------
-# Backend services
-# ------------------------------------------------------------
-#
-# We have two Python backend servers:
-#
-# Backend 1 -> 127.0.0.1:3001
-# Backend 2 -> 127.0.0.1:3002
-#
-# We have NOT added ports 3001 and 3002 to our public UFW
-# allow rules.
-#
-# Both backend servers listen on the loopback address
-# 127.0.0.1. This means clients do not need to access these
-# backend ports directly. Requests are received by NGINX and
-# then forwarded to the backend servers.
+============================================================
+BACKEND SERVICES
+============================================================
+
+The project uses two Python backend servers:
+
+Backend 1: 127.0.0.1:3001
+Backend 2: 127.0.0.1:3002
+
+The backend services are bound to the loopback interface
+127.0.0.1.
+
+Ports 3001 and 3002 are NOT added as public UFW allow rules.
+
+NGINX receives client requests and forwards them internally
+to the backend servers.
+
+
+============================================================
+BACKEND PORT VERIFICATION
+============================================================
+
+The backend listening ports can be checked using:
 
 ss -ltnp | grep -E '3001|3002'
 
-# This command allows us to verify that our Python backend
-# services are listening locally on ports 3001 and 3002.
+When both backend servers are running, the expected listeners are:
+
+127.0.0.1:3001
+127.0.0.1:3002
+
+This confirms that the backend applications are listening on
+the local loopback interface.
 
 
-# ------------------------------------------------------------
-# Test HTTPS access
-# ------------------------------------------------------------
-#
-# We used the following command to test our HTTPS connection
-# through NGINX.
-#
-# We use -k because our project uses a self-signed TLS
-# certificate.
+============================================================
+HTTPS VERIFICATION
+============================================================
+
+HTTPS access through NGINX can be tested using:
 
 curl -sk https://localhost
 
-# A successful request returns a response from one of our
-# backend servers through NGINX.
+The -k option is used because the project uses a self-signed
+TLS certificate in the local demonstration environment.
+
+A successful request returns a response from one of the
+backend servers through NGINX.
 
 
-# ------------------------------------------------------------
-# Test HTTP to HTTPS redirection
-# ------------------------------------------------------------
-#
-# We also tested that HTTP requests are redirected to HTTPS.
+============================================================
+HTTP TO HTTPS REDIRECTION
+============================================================
+
+HTTP redirection can be tested using:
 
 curl -I http://localhost
 
-# The expected response includes:
-#
-# HTTP/1.1 301 Moved Permanently
-# Location: https://localhost/
-#
-# This confirms that requests arriving through HTTP are
-# redirected by NGINX to the secure HTTPS connection.
+The expected response includes:
+
+HTTP/1.1 301 Moved Permanently
+Location: https://localhost/
+
+This confirms that HTTP requests are redirected by NGINX
+to HTTPS.
 
 
-# ------------------------------------------------------------
-# Final setup
-# ------------------------------------------------------------
-#
-# We have configured our firewall so that the required
-# services remain available without unnecessarily exposing
-# our backend servers.
-#
-# Public/required ports:
-#
-# 22/tcp  -> SSH
-# 80/tcp  -> HTTP
-# 443/tcp -> HTTPS
-#
-# Internal backend services:
-#
-# 127.0.0.1:3001 -> Backend Server 1
-# 127.0.0.1:3002 -> Backend Server 2
-#
-# Ports 3001 and 3002 are not included in our public UFW
-# allow rules. Our backend services are reached through NGINX.
-#
-# This gives The Rooters infrastructure a clear separation
-# between the public-facing web service and the internal
-# backend services.
+============================================================
+FINAL FIREWALL CONFIGURATION
+============================================================
+
+Public/required ports:
+
+22/tcp  - SSH administration
+80/tcp  - HTTP
+443/tcp - HTTPS
+
+Internal backend services:
+
+127.0.0.1:3001 - Backend Server 1
+127.0.0.1:3002 - Backend Server 2
+
+Ports 3001 and 3002 are not included in the public UFW
+allow rules.
+
+This configuration keeps NGINX as the main web entry point
+while the backend applications remain locally bound behind
+the reverse proxy.
